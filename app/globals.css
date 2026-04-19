@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap');
+
+:root {
+  --font-noto: 'Noto Sans JP', sans-serif;
+  --font-cormorant: 'Cormorant Garamond', serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-noto);
+  background-color: #FAFAF7;
+  color: #2C2520;
+  line-height: 1.7;
+}
+
+.font-display {
+  font-family: var(--font-cormorant);
+}
+
+@layer components {
+  .section-title {
+    @apply font-display text-3xl md:text-4xl text-cafe-wood-dark tracking-widest;
+  }
+
+  .section-subtitle {
+    @apply text-sm text-cafe-gray tracking-[0.2em] uppercase mt-1;
+  }
+
+  .btn-primary {
+    @apply inline-block bg-cafe-wood text-white px-8 py-3 text-sm tracking-widest hover:bg-cafe-wood-dark transition-colors duration-300;
+  }
+
+  .btn-outline {
+    @apply inline-block border border-cafe-wood text-cafe-wood px-8 py-3 text-sm tracking-widest hover:bg-cafe-wood hover:text-white transition-colors duration-300;
+  }
+}
