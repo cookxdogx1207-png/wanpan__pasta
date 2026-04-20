@@ -21,7 +21,7 @@ export default function Header() {
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         <Link href="/" className="flex flex-col leading-none">
           <span className="font-display text-xl text-cafe-wood-dark tracking-widest">ガジュマルcafe</span>
-          <span className="text-[9px] text-cafe-gray tracking-[0.3em]">GAJUMARU CAFE</span>
+          <span className="text-[9px] text-cafe-gray tracking-[0.3em]">愛知県 / 大治町</span>
         </Link>
 
         {/* Desktop nav */}
