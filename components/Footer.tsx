@@ -18,9 +18,10 @@ export default function Footer() {
           <div>
             <p className="text-xs tracking-[0.3em] text-white/40 mb-4">INFORMATION</p>
             <ul className="space-y-2 text-sm">
-              <li>〒490-1144 愛知県海部郡大治町</li>
-              <li>営業時間：要確認</li>
-              <li>定休日：不定休（カレンダーをご確認ください）</li>
+              <li>〒490-1135 愛知県海部郡大治町鎌須賀山廻52</li>
+              <li>TEL: 052-433-1953</li>
+              <li>営業時間：8:30 〜 17:00</li>
+              <li>定休日：不定休</li>
             </ul>
           </div>
 
