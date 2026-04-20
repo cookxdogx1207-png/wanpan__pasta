@@ -20,7 +20,7 @@ export default function AccessPage() {
               <p className="text-xs tracking-[0.3em] text-cafe-gray mb-3">SHOP INFO</p>
               <table className="w-full text-sm">
                 <tbody className="divide-y divide-cafe-beige">
-                  [
+                  {[
                     { label: '店名', value: 'ガジュマルcafe' },
                     { label: '住所', value: '〒490-1135\n愛知県海部郡大治町鎌須賀山廻52' },
                     { label: '電話', value: '052-433-1953' },
