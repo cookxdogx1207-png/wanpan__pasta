@@ -41,14 +41,11 @@ export default function HomePage() {
       </section>
 
       {/* Concept */}
-      <section className="py-24 px-4 max-w-4xl mx-auto text-center">
+      <section className="py-20 px-4 max-w-5xl mx-auto text-center">
         <p className="section-subtitle mb-3">CONCEPT</p>
         <h2 className="section-title mb-8">くつろぎの空間</h2>
         <p className="text-cafe-gray leading-relaxed text-sm md:text-base max-w-2xl mx-auto">
-          愛知県大治町にある、ナチュラルウッドに包まれたカフェ。<br />
-          キッズスペースを完備し、お子様を遊ばせながら<br />
-          ゆっくりとお食事やお茶の時間をお楽しみいただけます。<br className="hidden md:block" />
-          オープン当初から人気No.1のガジュマルランチをぜひご賞味ください。
+          愛知県大治町にある、ナチュラルウッドに包まれたカフェ。キッズスペースを完備し、お子様を遊ばせながらゆっくりとお食事やお茶の時間をお楽しみいただけます。オープン当初から人気No.1のガジュマルランチをぜひご賞味ください。
         </p>
       </section>
 
@@ -71,8 +68,13 @@ export default function HomePage() {
       {/* Kids space */}
       <section className="py-20 px-4">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-          <div className="aspect-square bg-cafe-beige flex items-center justify-center">
-            <span className="text-cafe-gray text-sm tracking-widest">キッズスペース写真</span>
+          <div className="aspect-square bg-cafe-beige flex flex-col items-center justify-center gap-4 text-cafe-gray/40">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" />
+              <circle cx="12" cy="10" r="3" />
+              <path d="M7 21v-1a5 5 0 0 1 10 0v1" />
+            </svg>
+            <span className="text-xs tracking-[0.3em]">写真準備中</span>
           </div>
           <div>
             <p className="section-subtitle mb-3">KIDS SPACE</p>
@@ -89,18 +91,20 @@ export default function HomePage() {
       </section>
 
       {/* Instagram CTA */}
-      <section className="py-16 bg-cafe-cream text-center px-4">
-        <p className="section-subtitle mb-3">INSTAGRAM</p>
-        <h2 className="section-title mb-6">最新情報はInstagramで</h2>
-        <p className="text-cafe-gray text-sm mb-8">@banyan0409</p>
-        <a
-          href="https://www.instagram.com/banyan0409"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-primary"
-        >
-          Instagramを見る
-        </a>
+      <section className="py-16 bg-cafe-cream">
+        <div className="max-w-5xl mx-auto px-4 text-center">
+          <p className="section-subtitle mb-3">INSTAGRAM</p>
+          <h2 className="section-title mb-6">最新情報はInstagramで</h2>
+          <p className="text-cafe-gray text-sm mb-8">@banyan0409</p>
+          <a
+            href="https://www.instagram.com/banyan0409"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary"
+          >
+            Instagramを見る
+          </a>
+        </div>
       </section>
     </>
   )
