@@ -10,6 +10,7 @@ const navLinks = [
   { href: '/news', label: 'NEWS' },
   { href: '/calendar', label: 'CALENDAR' },
   { href: '/access', label: 'ACCESS' },
+  { href: '/about', label: 'ABOUT' },
 ]
 
 export default function Header() {

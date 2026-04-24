@@ -33,6 +33,7 @@ export default function Footer() {
                 { href: '/news', label: 'お知らせ' },
                 { href: '/calendar', label: '営業カレンダー' },
                 { href: '/access', label: 'アクセス' },
+                { href: '/about', label: '自己紹介' },
               ].map(l => (
                 <li key={l.href}>
                   <Link href={l.href} className="hover:text-white transition-colors duration-200">
