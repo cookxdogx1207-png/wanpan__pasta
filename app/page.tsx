@@ -1,8 +1,11 @@
 import Link from 'next/link'
 import HeroSlideshow from '@/components/HeroSlideshow'
 import LunchTabs from '@/components/LunchTabs'
+import { getLunchMenuItems } from '@/lib/notion'
 
-export default function HomePage() {
+export default async function HomePage() {
+  const allLunchItems = await getLunchMenuItems()
+  const topLunchItems = allLunchItems.filter(item => item.category === 'トップページ')
   return (
     <>
       {/* Hero */}
@@ -59,7 +62,7 @@ export default function HomePage() {
             <p className="section-subtitle mb-3">LUNCH MENU</p>
             <h2 className="section-title">ランチメニュー</h2>
           </div>
-          <LunchTabs />
+          <LunchTabs items={topLunchItems} />
           <div className="text-center mt-10">
             <Link href="/menu" className="btn-primary">
               全メニューを見る

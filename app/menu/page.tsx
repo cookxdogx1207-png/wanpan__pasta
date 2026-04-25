@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { getLunchMenuItems } from '@/lib/notion'
 
 export const metadata: Metadata = {
   title: 'メニュー | ガジュマルcafe',
@@ -52,82 +53,6 @@ const morningToppings = [
   { item: 'シフォンケーキ', price: '+200円' },
 ]
 
-const lunchEatIn = [
-  {
-    name: 'ガジュマルlunch',
-    price: '¥1,350',
-    items: ['自家製ポークシチュー', '自家製パンorライス・彩り野菜のサラダ'],
-    note: null,
-    badge: '人気No.1',
-  },
-  {
-    name: 'オムライスlunch',
-    price: '¥1,200',
-    items: ['ひき肉ときのこのとろふわデミグラスオムライス', '彩り野菜のサラダ'],
-    note: null,
-    badge: null,
-  },
-  {
-    name: 'パスタlunch',
-    price: '¥1,200',
-    items: ['シーフードと春キャベツのクリームパスタ', '自家製パン・彩り野菜のサラダ'],
-    note: null,
-    badge: null,
-  },
-  {
-    name: 'キッシュプレートlunch',
-    price: '¥1,500',
-    items: [
-      'ベーコンと旬野菜のキッシュ',
-      '豚ロースのピカタ オーロラソース',
-      '彩り野菜のサラダ',
-      '小鉢・自家製パンorライス',
-    ],
-    note: null,
-    badge: null,
-  },
-  {
-    name: 'ハンバーグlunch',
-    price: '¥1,280',
-    items: ['トマト煮込みハンバーグ', 'サラダ・スープ・自家製パンorライス'],
-    note: '※1日限定5食',
-    badge: '限定',
-  },
-]
-
-const lunchTakeout = [
-  {
-    name: 'ガジュマル弁当',
-    price: '¥1,350',
-    items: ['自家製ポークシチュー', '自家製パンorライス・彩り野菜のサラダ'],
-  },
-  {
-    name: 'ハンバーグ弁当',
-    price: '¥1,280',
-    items: ['トマト煮込みハンバーグ', '自家製パンorライス・彩り野菜のサラダ'],
-  },
-  {
-    name: 'キッシュ弁当',
-    price: '¥1,500',
-    items: ['ベーコンと旬野菜のキッシュ', '今週のおかず・彩り野菜のサラダ', '自家製パンorライス・ペンネサラダ'],
-  },
-  {
-    name: 'オムライス弁当',
-    price: '¥1,200',
-    items: ['今週のオムライス・彩り野菜のサラダ'],
-  },
-  {
-    name: 'パスタ弁当',
-    price: '¥1,200',
-    items: ['今週のパスタ', '彩り野菜のサラダ・自家製パン'],
-  },
-  {
-    name: 'お子さま弁当',
-    price: '¥650',
-    items: ['ケチャップライスのオムライス', 'ハンバーグ・カップゼリー'],
-  },
-]
-
 function SectionHeader({ en, ja }: { en: string; ja: string }) {
   return (
     <div className="mb-10">
@@ -137,7 +62,12 @@ function SectionHeader({ en, ja }: { en: string; ja: string }) {
   )
 }
 
-export default function MenuPage() {
+export default async function MenuPage() {
+  const allItems = await getLunchMenuItems()
+  const seasonalItem = allItems.find(item => item.seasonal)
+  const lunchEatIn = allItems.filter(item => item.category === '店内')
+  const lunchTakeout = allItems.filter(item => item.category === 'テイクアウト')
+
   return (
     <div className="pt-16">
       {/* Page hero */}
@@ -195,26 +125,32 @@ export default function MenuPage() {
           <SectionHeader en="WEEKLY LUNCH" ja="今週のランチ" />
 
           {/* 季節限定 */}
-          <div className="bg-cafe-green text-white p-6 mb-8">
-            <p className="text-xs tracking-widest text-white/60 mb-2">3・4月限定</p>
-            <p className="font-display text-2xl mb-1">はまぐりと菜の花のジェノベーゼ</p>
-            <p className="text-cafe-wood-light font-medium mb-4">¥1,500</p>
-            <ul className="text-sm text-white/80 space-y-1">
-              <li>・ 彩り野菜のサラダ</li>
-              <li>・ 自家製パン</li>
-            </ul>
-            <p className="text-xs text-white/60 mt-4 leading-relaxed">
-              はまぐりの旨みが溶け込んだソースに、菜の花のほろ苦さと爽やかなジェノベーゼの香り。<br />
-              パスタにしっかり絡み、最後の一口まで楽しめます。
-            </p>
-          </div>
+          {seasonalItem && (
+            <div className="bg-cafe-green text-white p-6 mb-8">
+              {seasonalItem.period && (
+                <p className="text-xs tracking-widest text-white/60 mb-2">{seasonalItem.period}</p>
+              )}
+              <p className="font-display text-2xl mb-1">{seasonalItem.name}</p>
+              <p className="text-cafe-wood-light font-medium mb-4">{seasonalItem.price}</p>
+              <ul className="text-sm text-white/80 space-y-1">
+                {seasonalItem.items.map((item, i) => (
+                  <li key={i}>・ {item}</li>
+                ))}
+              </ul>
+              {seasonalItem.desc && (
+                <p className="text-xs text-white/60 mt-4 leading-relaxed whitespace-pre-line">
+                  {seasonalItem.desc}
+                </p>
+              )}
+            </div>
+          )}
 
           <h3 className="text-sm tracking-widest text-cafe-gray mb-6 pb-3 border-b border-cafe-beige">
             ■ 店内飲食
           </h3>
           <div className="grid sm:grid-cols-2 gap-4 mb-12">
             {lunchEatIn.map(item => (
-              <div key={item.name} className="bg-white border border-cafe-beige p-6 relative">
+              <div key={item.id} className="bg-white border border-cafe-beige p-6 relative">
                 {item.badge && (
                   <span className="absolute top-3 right-3 text-[10px] bg-cafe-wood text-white px-2 py-0.5 tracking-widest">
                     {item.badge}
@@ -239,7 +175,7 @@ export default function MenuPage() {
           </h3>
           <div className="grid sm:grid-cols-2 gap-4">
             {lunchTakeout.map(item => (
-              <div key={item.name} className="bg-white border border-cafe-beige p-6">
+              <div key={item.id} className="bg-white border border-cafe-beige p-6">
                 <p className="font-display text-xl text-cafe-wood-dark mb-1">{item.name}</p>
                 <p className="text-cafe-wood font-medium mb-4">{item.price}</p>
                 <ul className="space-y-1">
