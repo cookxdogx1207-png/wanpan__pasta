@@ -1,1 +1,32 @@
-[]
+[
+  {
+    "url": "https://www.instagram.com/reel/sample1/",
+    "date": "2026-04-20",
+    "title": "豚バラとキャベツのスープパスタ",
+    "tags": ["パスタ", "豚バラ", "キャベツ", "スープ", "ランチ"]
+  },
+  {
+    "url": "https://www.instagram.com/reel/sample2/",
+    "date": "2026-04-15",
+    "title": "はまぐりと菜の花のジェノベーゼ",
+    "tags": ["パスタ", "はまぐり", "菜の花", "春限定", "ランチ"]
+  },
+  {
+    "url": "https://www.instagram.com/reel/sample3/",
+    "date": "2026-04-10",
+    "title": "ほうじ茶ラテの作り方",
+    "tags": ["ドリンク", "ほうじ茶", "ラテ", "カフェ"]
+  },
+  {
+    "url": "https://www.instagram.com/reel/sample4/",
+    "date": "2026-04-05",
+    "title": "自家製シフォンケーキ",
+    "tags": ["スイーツ", "シフォンケーキ", "モーニング"]
+  },
+  {
+    "url": "https://www.instagram.com/reel/sample5/",
+    "date": "2026-03-28",
+    "title": "トマト煮込みハンバーグランチ",
+    "tags": ["ランチ", "ハンバーグ", "トマト", "限定"]
+  }
+]

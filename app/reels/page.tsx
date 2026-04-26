@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import posts from '@/data/posts.json'
-import InstagramFeed from '@/components/InstagramFeed'
+import ReelsSearch from '@/components/ReelsSearch'
 
 export const metadata: Metadata = {
   title: 'レシピ動画 | ガジュマルcafe',
@@ -14,12 +14,12 @@ export default function ReelsPage() {
         <p className="section-subtitle mb-3">REELS</p>
         <h1 className="section-title">レシピ動画</h1>
         <p className="mt-4 text-sm text-cafe-gray">
-          Instagramに投稿したレシピ動画をまとめています
+          レシピ名・材料・タグで動画を検索できます
         </p>
       </div>
 
       <div className="max-w-xl mx-auto px-4 py-16">
-        <InstagramFeed posts={posts} />
+        <ReelsSearch posts={posts} />
       </div>
     </div>
   )
