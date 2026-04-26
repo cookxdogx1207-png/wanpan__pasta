@@ -12,6 +12,7 @@
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
+    "@anthropic-ai/sdk": "^0.39.0",
     "@notionhq/client": "^2.2.15",
     "react-day-picker": "^8.10.1",
     "date-fns": "^3.6.0"
