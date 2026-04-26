@@ -30,6 +30,7 @@ export interface ReelPost {
   date: string
   title: string
   tags: string[]
+  thumbnailUrl?: string
 }
 
 export async function getReelPosts(): Promise<ReelPost[]> {
@@ -49,6 +50,7 @@ export async function getReelPosts(): Promise<ReelPost[]> {
       date: page.properties['日付']?.date?.start ?? '',
       title: page.properties['タイトル']?.title?.[0]?.plain_text ?? '',
       tags: (page.properties['タグ']?.multi_select ?? []).map((t: any) => t.name),
+      thumbnailUrl: page.properties['サムネイルURL']?.url ?? undefined,
     }))
   } catch {
     return []
