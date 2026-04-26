@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { getInstagramReels } from '@/lib/instagram'
+import { getReelPosts } from '@/lib/notion'
 import staticPosts from '@/data/posts.json'
 import ReelsWithSearch from '@/components/ReelsWithSearch'
 
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 }
 
 export default async function ReelsPage() {
-  const reels = await getInstagramReels()
+  const reels = await getReelPosts()
   const posts = reels.length > 0 ? reels : staticPosts
 
   return (

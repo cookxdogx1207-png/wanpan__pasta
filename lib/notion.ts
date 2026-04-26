@@ -25,6 +25,36 @@ export interface RecipeItem {
   imageUrl: string
 }
 
+export interface ReelPost {
+  url: string
+  date: string
+  title: string
+  tags: string[]
+}
+
+export async function getReelPosts(): Promise<ReelPost[]> {
+  if (!process.env.NOTION_REELS_DB_ID || !process.env.NOTION_TOKEN) {
+    return []
+  }
+
+  try {
+    const response = await notion.databases.query({
+      database_id: process.env.NOTION_REELS_DB_ID,
+      sorts: [{ property: '日付', direction: 'descending' }],
+      filter: { property: '公開', checkbox: { equals: true } },
+    })
+
+    return response.results.map((page: any) => ({
+      url: page.properties['URL']?.url ?? '',
+      date: page.properties['日付']?.date?.start ?? '',
+      title: page.properties['タイトル']?.title?.[0]?.plain_text ?? '',
+      tags: (page.properties['タグ']?.multi_select ?? []).map((t: any) => t.name),
+    }))
+  } catch {
+    return []
+  }
+}
+
 export async function getNewsItems(): Promise<NewsItem[]> {
   if (!process.env.NOTION_NEWS_DB_ID || !process.env.NOTION_TOKEN) {
     return getSampleNews()
