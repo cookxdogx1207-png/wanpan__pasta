@@ -27,6 +27,8 @@ export async function POST(req: NextRequest) {
       })
     }
 
+    // cache_control も空テキストブロックには設定不可のため同じ条件でガード:
+    // "cache_control cannot be set for empty text blocks"
     if (text && text.trim() !== '') {
       content.push({ type: 'text', text })
     }
