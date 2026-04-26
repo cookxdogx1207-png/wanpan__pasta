@@ -1,6 +1,8 @@
 import { Client } from '@notionhq/client'
 
-const notion = new Client({ auth: process.env.NOTION_TOKEN })
+function getClient() {
+  return new Client({ auth: process.env.NOTION_TOKEN })
+}
 
 export interface NewsItem {
   id: string
@@ -26,13 +28,13 @@ export interface RecipeItem {
 }
 
 export async function getNewsItems(): Promise<NewsItem[]> {
-  if (!process.env.NOTION_NEWS_DB_ID || !process.env.NOTION_TOKEN) {
-    return getSampleNews()
-  }
+  const token = process.env.NOTION_TOKEN
+  const dbId = process.env.NOTION_NEWS_DB_ID
+  if (!token || !dbId) return getSampleNews()
 
   try {
-    const response = await notion.databases.query({
-      database_id: process.env.NOTION_NEWS_DB_ID,
+    const response = await getClient().databases.query({
+      database_id: dbId,
       sorts: [{ property: '日付', direction: 'descending' }],
       filter: { property: '公開', checkbox: { equals: true } },
     })
@@ -49,13 +51,13 @@ export async function getNewsItems(): Promise<NewsItem[]> {
 }
 
 export async function getHolidayDates(): Promise<HolidayDate[]> {
-  if (!process.env.NOTION_HOLIDAY_DB_ID || !process.env.NOTION_TOKEN) {
-    return []
-  }
+  const token = process.env.NOTION_TOKEN
+  const dbId = process.env.NOTION_HOLIDAY_DB_ID
+  if (!token || !dbId) return []
 
   try {
-    const response = await notion.databases.query({
-      database_id: process.env.NOTION_HOLIDAY_DB_ID,
+    const response = await getClient().databases.query({
+      database_id: dbId,
       sorts: [{ property: '日付', direction: 'ascending' }],
     })
 
@@ -69,13 +71,13 @@ export async function getHolidayDates(): Promise<HolidayDate[]> {
 }
 
 export async function getRecipeItems(): Promise<RecipeItem[]> {
-  if (!process.env.NOTION_RECIPE_DB_ID || !process.env.NOTION_TOKEN) {
-    return getSampleRecipes()
-  }
+  const token = process.env.NOTION_TOKEN
+  const dbId = process.env.NOTION_RECIPE_DB_ID
+  if (!token || !dbId) return getSampleRecipes()
 
   try {
-    const response = await notion.databases.query({
-      database_id: process.env.NOTION_RECIPE_DB_ID,
+    const response = await getClient().databases.query({
+      database_id: dbId,
       sorts: [{ property: 'タイトル', direction: 'ascending' }],
       filter: { property: '公開', checkbox: { equals: true } },
     })

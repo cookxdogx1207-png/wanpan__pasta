@@ -11,6 +11,7 @@ export default function RecipeSearch({ recipes }: { recipes: RecipeItem[] }) {
   const [category, setCategory] = useState('すべて')
   const [expanded, setExpanded] = useState<string | null>(null)
   const [isPending, startTransition] = useTransition()
+  const [refreshError, setRefreshError] = useState(false)
   const router = useRouter()
 
   const filtered = useMemo(() => {
@@ -19,21 +20,29 @@ export default function RecipeSearch({ recipes }: { recipes: RecipeItem[] }) {
       const matchCategory = category === 'すべて' || r.category === category
       const matchQuery =
         !q ||
-        r.title.toLowerCase().includes(q) ||
-        r.description.toLowerCase().includes(q) ||
-        r.ingredients.toLowerCase().includes(q)
+        (r.title ?? '').toLowerCase().includes(q) ||
+        (r.description ?? '').toLowerCase().includes(q) ||
+        (r.ingredients ?? '').toLowerCase().includes(q)
       return matchCategory && matchQuery
     })
   }, [recipes, query, category])
 
   function handleRefresh() {
+    setRefreshError(false)
     startTransition(() => {
-      router.refresh()
+      try {
+        router.refresh()
+      } catch {
+        setRefreshError(true)
+      }
     })
   }
 
   return (
     <div>
+      {refreshError && (
+        <p className="mb-4 text-xs text-red-500 text-center">データの更新に失敗しました。しばらくしてから再度お試しください。</p>
+      )}
       {/* Search bar */}
       <div className="mb-6 flex gap-3">
         <input
