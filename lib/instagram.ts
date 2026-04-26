@@ -24,7 +24,7 @@ async function fetchAllMedia(token: string): Promise<any[]> {
   const all: any[] = []
 
   while (url) {
-    const res = await fetch(url)
+    const res: Response = await fetch(url)
     if (!res.ok) break
     const json = await res.json()
     all.push(...(json.data ?? []))
