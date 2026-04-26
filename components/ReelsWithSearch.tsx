@@ -7,6 +7,7 @@ interface Post {
   date: string
   title?: string
   tags?: string[]
+  thumbnailUrl?: string
 }
 
 function formatDate(dateStr: string) {
@@ -128,16 +129,35 @@ export default function ReelsWithSearch({ posts }: { posts: Post[] }) {
               rel="noopener noreferrer"
               className="group block bg-white border border-cafe-beige rounded-2xl overflow-hidden hover:shadow-md transition-shadow"
             >
-              {/* Thumbnail area */}
-              <div className="aspect-square bg-cafe-cream flex flex-col items-center justify-center gap-3">
-                <svg
-                  className="w-10 h-10 text-cafe-wood/40 group-hover:text-cafe-wood/60 transition-colors"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-                <span className="text-[10px] tracking-[0.3em] text-cafe-gray/40 uppercase">Reel</span>
+              {/* Thumbnail */}
+              <div className="aspect-square bg-cafe-cream overflow-hidden relative">
+                {post.thumbnailUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={post.thumbnailUrl}
+                    alt={post.title || ''}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full flex flex-col items-center justify-center gap-3">
+                    <svg
+                      className="w-10 h-10 text-cafe-wood/40"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                    <span className="text-[10px] tracking-[0.3em] text-cafe-gray/40 uppercase">Reel</span>
+                  </div>
+                )}
+                {/* Play overlay on hover */}
+                <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/20 transition-colors">
+                  <div className="w-12 h-12 rounded-full bg-white/0 group-hover:bg-white/80 flex items-center justify-center transition-all scale-75 group-hover:scale-100">
+                    <svg className="w-5 h-5 text-cafe-wood ml-1" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </div>
+                </div>
               </div>
 
               {/* Info */}

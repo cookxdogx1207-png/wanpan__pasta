@@ -1,13 +1,19 @@
 import type { Metadata } from 'next'
-import posts from '@/data/posts.json'
+import { getInstagramReels } from '@/lib/instagram'
+import staticPosts from '@/data/posts.json'
 import ReelsWithSearch from '@/components/ReelsWithSearch'
+
+export const revalidate = 3600
 
 export const metadata: Metadata = {
   title: 'レシピ動画 | ガジュマルcafe',
   description: 'ガジュマルcafeのInstagramレシピ動画一覧',
 }
 
-export default function ReelsPage() {
+export default async function ReelsPage() {
+  const reels = await getInstagramReels()
+  const posts = reels.length > 0 ? reels : staticPosts
+
   return (
     <div className="pt-16">
       <div className="bg-cafe-cream py-16 text-center px-4">
