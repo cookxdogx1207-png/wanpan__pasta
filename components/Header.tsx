@@ -8,6 +8,7 @@ const navLinks = [
   { href: '/', label: 'TOP' },
   { href: '/menu', label: 'MENU' },
   { href: '/recipes', label: 'RECIPE' },
+  { href: '/reels', label: 'REELS' },
   { href: '/news', label: 'NEWS' },
   { href: '/calendar', label: 'CALENDAR' },
   { href: '/access', label: 'ACCESS' },
